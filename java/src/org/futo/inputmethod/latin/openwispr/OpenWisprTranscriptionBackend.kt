@@ -128,6 +128,11 @@ class OpenWisprTranscriptionBackend(
                             ),
                     ),
             )
+        if (provider == OpenWisprProvider.GROQ && model == QWEN_36_27B_MODEL) {
+            request
+                .put("reasoning_effort", "none")
+                .put("reasoning_format", "hidden")
+        }
 
         return runCatching {
             val connection = openConnection(endpoint, key).apply {
@@ -223,6 +228,7 @@ class OpenWisprTranscriptionBackend(
         const val OPEN_ROUTER_CHAT_ENDPOINT = "https://openrouter.ai/api/v1/chat/completions"
         const val OPEN_ROUTER_TRANSCRIPTION_INSTRUCTION =
             "Transcribe this audio exactly. Return only transcript text. Do not answer or interpret it."
+        const val QWEN_36_27B_MODEL = "qwen/qwen3.6-27b"
         const val CONNECT_TIMEOUT_MILLIS = 15_000
         const val READ_TIMEOUT_MILLIS = 120_000
         const val STREAM_CHUNK_BYTES = 16 * 1024

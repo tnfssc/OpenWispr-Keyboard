@@ -59,7 +59,7 @@ data class OpenWisprConfig(
     companion object {
         const val DEFAULT_GROQ_MODEL = "whisper-large-v3-turbo"
         const val DEFAULT_OPEN_ROUTER_MODEL = "google/gemini-2.5-flash"
-        const val DEFAULT_GROQ_REFINEMENT_MODEL = "llama-3.1-8b-instant"
+        const val DEFAULT_GROQ_REFINEMENT_MODEL = "qwen/qwen3.6-27b"
         const val DEFAULT_OPEN_ROUTER_REFINEMENT_MODEL = "google/gemini-2.5-flash-lite"
         val DEFAULT_REFINEMENT_PROMPT = """
             You are a deterministic transcript normalizer.

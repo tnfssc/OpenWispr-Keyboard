@@ -92,10 +92,14 @@ class OpenWisprConfigStoreTest {
 
     @Test
     fun refinementUsesConfiguredProviderAndReturnsCleanedText() = runBlocking {
+        val transcriptionConnection = FakeConnection("""{"text":"raw words"}""")
+        val refinementConnection = FakeConnection(
+            """{"choices":[{"message":{"content":"Raw words."}}]}""",
+        )
         val connections = ArrayDeque(
             listOf(
-                FakeConnection("""{"text":"raw words"}"""),
-                FakeConnection("""{"choices":[{"message":{"content":"Raw words."}}]}"""),
+                transcriptionConnection,
+                refinementConnection,
             ),
         )
         val backend = OpenWisprTranscriptionBackend(
@@ -109,6 +113,12 @@ class OpenWisprConfigStoreTest {
         )
 
         assertEquals("Raw words.", backend.transcribe(shortArrayOf(1, 2), 2, 16_000))
+        val request = org.json.JSONObject(
+            refinementConnection.requestBody.toString(Charsets.UTF_8.name()),
+        )
+        assertEquals("qwen/qwen3.6-27b", request.getString("model"))
+        assertEquals("none", request.getString("reasoning_effort"))
+        assertEquals("hidden", request.getString("reasoning_format"))
     }
 
     private class FakeConnection(private val response: String) :
