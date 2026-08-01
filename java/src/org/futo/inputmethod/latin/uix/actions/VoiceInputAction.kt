@@ -25,7 +25,6 @@ import kotlinx.coroutines.yield
 import org.futo.inputmethod.latin.R
 import org.futo.inputmethod.latin.openwispr.OpenWisprConfig
 import org.futo.inputmethod.latin.openwispr.OpenWisprConfigStore
-import org.futo.inputmethod.latin.openwispr.OpenWisprInputPolicy
 import org.futo.inputmethod.latin.openwispr.OpenWisprTranscriptionBackend
 import org.futo.inputmethod.latin.uix.ANIMATE_BUBBLE
 import org.futo.inputmethod.latin.uix.AUDIO_FOCUS
@@ -220,19 +219,12 @@ val VoiceInputAction = Action(
     persistentState = { VoiceInputPersistentState(it) },
     windowImpl = { manager, persistentState ->
         val config = OpenWisprConfigStore.load(manager.getContext())
-        val editorInfo = manager.getCurrentInputEditorInfo()
         when {
             manager.isDeviceLocked() -> OpenWisprNotConfiguredWindow(
                 manager,
                 message = "Voice input is unavailable while device is locked",
                 openSettings = false,
             )
-            editorInfo != null && OpenWisprInputPolicy.isPasswordInput(editorInfo.inputType) ->
-                OpenWisprNotConfiguredWindow(
-                    manager,
-                    message = "Voice input is unavailable in password fields",
-                    openSettings = false,
-                )
             config.isConfigured -> {
             VoiceInputActionWindow(
                 manager = manager,

@@ -1,8 +1,6 @@
 package org.futo.inputmethod.latin.openwispr
 
-import android.text.InputType
 import org.junit.Assert.assertEquals
-import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Test
 import java.io.ByteArrayOutputStream
@@ -24,21 +22,6 @@ class OpenWisprBackendTest {
         assertEquals("router-model", config.model)
         assertTrue(config.isConfigured)
         assertEquals("groq-key", config.keyFor(OpenWisprProvider.GROQ))
-    }
-
-    @Test
-    fun `password fields reject voice input`() {
-        assertTrue(
-            OpenWisprInputPolicy.isPasswordInput(
-                InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD,
-            ),
-        )
-        assertTrue(
-            OpenWisprInputPolicy.isPasswordInput(
-                InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_VARIATION_PASSWORD,
-            ),
-        )
-        assertFalse(OpenWisprInputPolicy.isPasswordInput(InputType.TYPE_CLASS_TEXT))
     }
 
     @Test
