@@ -27,17 +27,14 @@ import org.futo.voiceinput.shared.ui.MicrophoneDeviceState
 import org.futo.voiceinput.shared.ui.PartialDecodingResult
 import org.futo.voiceinput.shared.ui.RecognizeLoadingCircle
 import org.futo.voiceinput.shared.ui.RecognizeMicError
-import org.futo.voiceinput.shared.whisper.DecodingConfiguration
-import org.futo.voiceinput.shared.whisper.ModelManager
-import org.futo.voiceinput.shared.whisper.MultiModelRunConfiguration
 
 data class RecognizerViewSettings(
     val shouldShowVerboseFeedback: Boolean,
     val shouldShowInlinePartialResult: Boolean,
     val shouldAnimateBubble: Boolean,
+    val failureMessage: String,
 
-    val modelRunConfiguration: MultiModelRunConfiguration,
-    val decodingConfiguration: DecodingConfiguration,
+    val transcriptionBackend: AudioTranscriptionBackend,
     val recordingConfiguration: RecordingSettings
 )
 
@@ -79,7 +76,6 @@ class RecognizerView(
     private val listener: RecognizerViewListener,
     private val settings: RecognizerViewSettings,
     lifecycleScope: LifecycleCoroutineScope,
-    modelManager: ModelManager
 ) {
     private val magnitudeState = mutableFloatStateOf(0.0f)
     private val statusState = mutableStateOf(MagnitudeState.NOT_TALKED_YET)
@@ -142,7 +138,7 @@ class RecognizerView(
                         indication = null,
                         interactionSource = remember { MutableInteractionSource() })) {
                     Text(
-                        stringResource(R.string.model_load_error),
+                        settings.failureMessage,
                         modifier = Modifier
                             .align(Alignment.Center)
                             .padding(8.dp), textAlign = TextAlign.Center)
@@ -240,11 +236,9 @@ class RecognizerView(
     private val recognizer: AudioRecognizer = AudioRecognizer(
         context = context,
         lifecycleScope = lifecycleScope,
-        modelManager = modelManager,
         listener = audioRecognizerListener,
         settings = AudioRecognizerSettings(
-            modelRunConfiguration = settings.modelRunConfiguration,
-            decodingConfiguration = settings.decodingConfiguration,
+            transcriptionBackend = settings.transcriptionBackend,
             recordingConfiguration = settings.recordingConfiguration
         )
     )

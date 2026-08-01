@@ -1,5 +1,10 @@
 # FUTO Keyboard
 
+> **Modified fork notice:** This non-commercial fork is modified by OpenWispr.
+> Voice recordings are sent to the provider selected by the user instead of
+> using FUTO's offline speech model. Keyboard typing, suggestions, and swipe
+> processing remain local. This project is not an official FUTO release.
+
 The goal is to make a good modern keyboard that stays offline and doesn't spy on you. This keyboard is a fork of [LatinIME, The Android Open-Source Keyboard](https://android.googlesource.com/platform/packages/inputmethods/LatinIME), with significant changes made to it.
 
 Check out the [FUTO Keyboard website](https://keyboard.futo.tech/) for downloads and more information.

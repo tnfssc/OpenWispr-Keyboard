@@ -46,6 +46,7 @@ import org.futo.inputmethod.latin.uix.settings.pages.credits.languageContribs
 import org.futo.inputmethod.latin.uix.settings.pages.credits.layoutContribs
 import org.futo.inputmethod.latin.uix.settings.pages.credits.text
 import org.futo.inputmethod.latin.uix.settings.render
+import org.futo.inputmethod.latin.uix.settings.userSettingDecorationOnly
 import org.futo.inputmethod.latin.uix.settings.userSettingNavigationItem
 import org.futo.inputmethod.latin.uix.theme.Typography
 import org.futo.inputmethod.updates.openURI
@@ -206,6 +207,13 @@ val CreditsScreenLite = UserSettingsMenu(
     title = R.string.credits_menu_title,
     navPath = "credits", registerNavPath = false,
     settings = listOf(
+        userSettingDecorationOnly {
+            Text(
+                stringResource(R.string.openwispr_modified_fork_notice),
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
+                style = Typography.Body.Regular,
+            )
+        },
         userSettingNavigationItem(
             title = (R.string.credits_menu_contribute_translations_button),
             style = NavigationItemStyle.Misc,
@@ -245,6 +253,11 @@ fun CreditsScreen(navController: NavHostController = rememberNavController()) {
             Text(
                 stringResource(R.string.credits_menu_header_text),
                 style = Typography.Body.RegularMl
+            )
+            Text(
+                stringResource(R.string.openwispr_modified_fork_notice),
+                style = Typography.Body.Regular,
+                textAlign = TextAlign.Center,
             )
 
             CreditCategorySection(

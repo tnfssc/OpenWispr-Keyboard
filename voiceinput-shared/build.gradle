@@ -91,6 +91,7 @@ android {
     sourceSets {
         main {
             res.srcDirs = ['../voiceinput-shared/src/main/res', translationsWithoutEngValues('../translations/voiceinput')]
+            mlModels.srcDirs = []
         }
     }
 
@@ -105,7 +106,7 @@ android {
     buildFeatures {
         compose true
         viewBinding true
-        mlModelBinding true
+        mlModelBinding false
     }
 }
 

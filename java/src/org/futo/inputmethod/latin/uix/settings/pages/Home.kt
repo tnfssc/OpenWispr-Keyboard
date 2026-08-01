@@ -42,19 +42,11 @@ import org.futo.inputmethod.latin.uix.settings.render
 import org.futo.inputmethod.latin.uix.settings.useDataStoreValue
 import org.futo.inputmethod.latin.uix.settings.userSettingNavigationItem
 import org.futo.inputmethod.latin.uix.theme.Typography
-import org.futo.inputmethod.updates.ConditionalMigrateUpdateNotice
-import org.futo.inputmethod.updates.openManualUpdateCheck
 
 val HomeScreenLite = UserSettingsMenu(
     title = R.string.settings_home_title,
     navPath = "home", registerNavPath = false,
     settings = listOf(
-        userSettingNavigationItem(
-            title = R.string.settings_check_for_updates_manually,
-            style = NavigationItemStyle.Misc,
-            navigate = { nav -> nav.context.openManualUpdateCheck() }
-        ),
-
         userSettingNavigationItem(
             title = R.string.language_settings_title,
             style = NavigationItemStyle.HomePrimary,
@@ -172,7 +164,7 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
         ) {
             Spacer(modifier = Modifier.height(24.dp))
             Row(Modifier.padding(16.dp)) {
-                Text(stringResource(R.string.english_ime_settings), style = Typography.Heading.Medium, modifier = Modifier
+                Text(stringResource(R.string.openwispr_settings_title), style = Typography.Heading.Medium, modifier = Modifier
                     .align(CenterVertically)
                     .weight(1.0f))
 
@@ -187,7 +179,6 @@ fun HomeScreen(navController: NavHostController = rememberNavController()) {
                 }
             }
 
-            ConditionalMigrateUpdateNotice()
             ConditionalUnpaidNoticeWithNav(navController)
 
             HomeScreenLite.render(showTitle = false)

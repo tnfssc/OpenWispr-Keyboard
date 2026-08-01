@@ -55,6 +55,7 @@ enum class TutorialMode {
 interface KeyboardManagerForAction {
     fun getContext(): Context
     fun getLifecycleScope(): LifecycleCoroutineScope
+    fun getCurrentInputEditorInfo(): EditorInfo?
 
     fun createInputTransaction(): ActionInputTransaction
 

@@ -248,11 +248,6 @@ fun LanguageSurface(
                 }
 
                 LanguageConfigurable(
-                    kind = FileKind.VoiceInput,
-                    selection = item.options.voiceInputModel
-                        ?: stringResource(R.string.language_settings_resource_none)
-                ) { onConfigurableSelected(FileKind.VoiceInput) }
-                LanguageConfigurable(
                     kind = FileKind.Dictionary,
                     selection = item.options.dictionary
                         ?: stringResource(R.string.language_settings_resource_none)
@@ -518,16 +513,6 @@ val LanguageSettingsBottom = listOf(
         },
     ),
     userSettingNavigationItem(
-        title = R.string.language_settings_explore_voice_input_models_online,
-        style = NavigationItemStyle.Misc,
-        navigate = { nav ->
-            nav.context.openURI(
-                FileKind.VoiceInput.getAddonUrlForLocale(null),
-                true
-            )
-        },
-    ),
-    userSettingNavigationItem(
         title = R.string.language_settings_explore_dictionaries_online,
         style = NavigationItemStyle.Misc,
         navigate = { nav ->
@@ -654,10 +639,6 @@ fun LanguagesScreen(navController: NavHostController = rememberNavController()) 
 
             val name = Subtypes.getName(subtypes.first())
 
-            val voiceInputModelName = ResourceHelper.tryFindingVoiceInputModelForLocale(
-                context,
-                locale
-            )?.name?.let { stringResource(it) }
             val dictionaryName = runBlocking {
                 ResourceHelper.findKeyForLocaleAndKind(
                     context,
@@ -687,7 +668,7 @@ fun LanguagesScreen(navController: NavHostController = rememberNavController()) 
                 }
 
             val options = LanguageOptions(
-                voiceInputModel = voiceInputModelName,
+                voiceInputModel = null,
                 dictionary = dictionaryName,
                 transformerModel = transformerName
             )

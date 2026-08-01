@@ -201,8 +201,8 @@ android {
         versionName getVersionName()
         versionCode getVersionCode()
 
-        applicationId 'org.futo.inputmethod.latin'
-        testApplicationId 'org.futo.inputmethod.latin.tests'
+        applicationId 'app.openwispr.keyboard'
+        testApplicationId 'app.openwispr.keyboard.tests'
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = false
     }
@@ -288,7 +288,7 @@ android {
             versionNameSuffix "-unstable"
 
             buildConfigField "boolean", "IS_PLAYSTORE_BUILD", "false"
-            buildConfigField "boolean", "UPDATE_CHECKING", "true"
+            buildConfigField "boolean", "UPDATE_CHECKING", "false"
             buildConfigField "boolean", "UPDATE_CHECKING_NETWORK", "false"
             buildConfigField "String", "BRANCH", "\"${getBranch()}\""
             getIsDefault().set(true)
@@ -298,8 +298,9 @@ android {
 
         stable {
             dimension "buildType"
+            versionNameSuffix "-openwispr-0.1.0"
             buildConfigField "boolean", "IS_PLAYSTORE_BUILD", "false"
-            buildConfigField "boolean", "UPDATE_CHECKING", "true"
+            buildConfigField "boolean", "UPDATE_CHECKING", "false"
             buildConfigField "boolean", "UPDATE_CHECKING_NETWORK", "false"
             buildConfigField "String", "BRANCH", "\"${getBranch()}\""
 
@@ -422,6 +423,7 @@ dependencies {
 
     implementation 'androidx.datastore:datastore-preferences:1.1.7'
     implementation 'androidx.autofill:autofill:1.1.0'
+    implementation 'androidx.security:security-crypto:1.1.0-alpha06'
     implementation 'androidx.window:window:1.3.0'
 
     stableImplementation 'ch.acra:acra-mail:5.11.1'

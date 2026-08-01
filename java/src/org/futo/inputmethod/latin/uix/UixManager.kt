@@ -274,6 +274,8 @@ class UixActionKeyboardManager(val uixManager: UixManager, val latinIME: LatinIM
         return latinIME.lifecycleScope
     }
 
+    override fun getCurrentInputEditorInfo(): EditorInfo? = latinIME.currentInputEditorInfo
+
     override fun createInputTransaction(): ActionInputTransaction {
         return latinIME.imeManager.createInputTransaction()
     }
