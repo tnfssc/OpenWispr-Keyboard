@@ -298,7 +298,6 @@ android {
 
         stable {
             dimension "buildType"
-            versionNameSuffix "-openwispr-0.1.0"
             buildConfigField "boolean", "IS_PLAYSTORE_BUILD", "false"
             buildConfigField "boolean", "UPDATE_CHECKING", "false"
             buildConfigField "boolean", "UPDATE_CHECKING_NETWORK", "false"
